@@ -12,13 +12,18 @@ from profiles_api import serializers
 from profiles_api import models
 from profiles_api import permissions
 
+# Use this if
+    # Your interface is not using standard CRUD operations
+    # You're building something complex
+    # You plan to customize the logic
+    # You are not working with standard data structures
 
 class HelloApiView(APIView):
-    """Test API View"""
+    # Test API View
     serializer_class = serializers.HelloSerializer
 
-    def get(self, request, format=None):
-        """Returns a list of APIView features"""
+    def get(self, request, format = None): # Get request to API
+        # Returns a list of APIView features
         an_apiview = [
             'Uses HTTP methods as function (get, post, patch, put, delete)',
             'Is similar to a traditional Django View',
@@ -28,39 +33,41 @@ class HelloApiView(APIView):
 
         return Response({'message': 'Hello!', 'an_apiview': an_apiview})
 
-    def post(self, request):
-        """Create a hello message with our name"""
+    def post(self, request): # Post request to API
+        # Create a hello message with user name
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
             name = serializer.validated_data.get('name')
-            message = f'Hello {name}'
+            message = f'Hello, {name}'
             return Response({'message': message})
         else:
-            return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, pk=None):
-        """Handle updating an object"""
-        return Response({'method': 'PUT'})
+    def put(self, request, pk = None):
+        # Handle updating an object
+        return Response({'method' : 'PUT'})
 
-    def patch(self, request, pk=None):
-        """Handle a partial update of an object"""
-        return Response({'method': 'PATCH'})
+    def patch(self, request, pk = None):
+        # Handle a partial update of an object
+        return Response({'method' : 'PATCH'})
 
-    def delete(self, request, pk=None):
-        """Delete an object"""
-        return Response({'method': 'DELETE'})
+    def delete(self, request, pk = None):
+        # Delete an object
+        return Response({'method' : 'DELETE'})
 
+# Use this instead of APIView when you
+    # Are building a simple CRUD interface to the database
+    # Are building a Quick and Simple API
+    # Have little to no planned customization of logic
+    # Are working with standard data structures
 
 class HelloViewSet(viewsets.ViewSet):
-    """Test API ViewSet"""
+    # Test API ViewSet
     serializer_class = serializers.HelloSerializer
 
     def list(self, request):
-        """Return a hello message"""
+        # Return a hello message
         a_viewset = [
             'Uses actions (list, create,retrieve, update, partial_update)',
             'Automatically maps to URLs using Routers',
@@ -70,12 +77,12 @@ class HelloViewSet(viewsets.ViewSet):
         return Response({'message': 'Hello!', 'a_viewset': a_viewset})
 
     def create(self, request):
-        """Create a new hello message"""
+        # Create a new hello message
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
             name = serializer.validated_data.get('name')
-            message = f'Hello {name}!'
+            message = f'Greetings, {name}!'
             return Response({'message': message})
         else:
             return Response(
@@ -84,24 +91,24 @@ class HelloViewSet(viewsets.ViewSet):
             )
 
     def retrieve(self, request, pk=None):
-        """Handle getting an object by its ID"""
+        # Handle getting an object by its ID
         return Response({'http_method': 'GET'})
 
     def update(self, request, pk=None):
-        """Handle updating an object"""
+        # Handle updating an object
         return Response({'http_method': 'PUT'})
 
     def partial_update(self, request, pk=None):
-        """Handle updating part of an object"""
+        # Handle updating part of an object
         return Response({'http_method': 'PATCH'})
 
     def destroy(self, request, pk=None):
-        """Handle removing an object"""
+        # Handle removing an object
         return Response({'http_method': 'DELETE'})
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
-    """Handle creating and updating profiles"""
+    # Handle creating and updating profiles
     serializer_class = serializers.UserProfileSerializer
     queryset = models.UserProfile.objects.all()
     authentication_classes = (TokenAuthentication,)
@@ -111,17 +118,17 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
 
 class UserLoginApiView(ObtainAuthToken):
-    """Handle creating user authentication tokens"""
+    # Handle creating user authentication tokens
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
 
 class UserProfileFeedViewSet(viewsets.ModelViewSet):
-    """Handles creating, reading and updating profile feed items"""
+    # Handles the creating, reading and updating of profile feed items
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.ProfileFeedItemSerializer
     queryset = models.ProfileFeedItem.objects.all()
     permission_classes = (permissions.UpdateOwnStatus, IsAuthenticated)
 
     def perform_create(self, serializer):
-        """Sets the user profile to the logged in user"""
+        # Sets the user profile to the logged in user
         serializer.save(user_profile=self.request.user)
