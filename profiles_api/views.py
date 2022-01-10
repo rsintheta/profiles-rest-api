@@ -69,7 +69,7 @@ class HelloViewSet(viewsets.ViewSet):
     def list(self, request):
         # Return a hello message
         a_viewset = [
-            'Uses actions (list, create,retrieve, update, partial_update)',
+            'Uses actions (list, create, retrieve, update, partial_update)',
             'Automatically maps to URLs using Routers',
             'Provides more functionality with less code',
         ]
