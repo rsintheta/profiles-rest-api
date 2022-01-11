@@ -18,28 +18,28 @@ from profiles_api import permissions
     # You plan to customize the logic
     # You are not working with standard data structures
 
-class HelloApiView(APIView):
+class TestApiView(APIView):
     # Test API View
-    serializer_class = serializers.HelloSerializer
+    serializer_class = serializers.TestSerializer
 
     def get(self, request, format = None): # Get request to API
         # Returns a list of APIView features
         an_apiview = [
-            'Uses HTTP methods as function (get, post, patch, put, delete)',
-            'Is similar to a traditional Django View',
-            'Gives you the most control over you application logic',
-            'Is mapped manually to URLs',
+            'Using HTTP methods as functions (get, post, patch, put, delete)',
+            'Similar to a traditional Django View',
+            'Gives the most control over application logic',
+            'Mapped manually to URLs',
         ]
 
-        return Response({'message': 'Hello!', 'an_apiview': an_apiview})
+        return Response({'message': 'Success!', 'an_apiview': an_apiview})
 
     def post(self, request): # Post request to API
-        # Create a hello message with user name
+        # Create a message with user name
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
             name = serializer.validated_data.get('name')
-            message = f'Hello, {name}'
+            message = f'Thank you, {name}'
             return Response({'message': message})
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
@@ -62,19 +62,18 @@ class HelloApiView(APIView):
     # Have little to no planned customization of logic
     # Are working with standard data structures
 
-class HelloViewSet(viewsets.ViewSet):
+class TestViewSet(viewsets.ViewSet):
     # Test API ViewSet
-    serializer_class = serializers.HelloSerializer
+    serializer_class = serializers.TestSerializer
 
     def list(self, request):
-        # Return a hello message
+        # Return a test message
         a_viewset = [
-            'Uses actions (list, create, retrieve, update, partial_update)',
-            'Automatically maps to URLs using Routers',
-            'Provides more functionality with less code',
+            'Actions: (list, create, retrieve, update, partial_update)',
+            'Automatically maps to URLs using routers',
+            'Typically provides more functionality with less code',
         ]
-
-        return Response({'message': 'Hello!', 'a_viewset': a_viewset})
+        return Response({'message': 'Welcome!', 'a_viewset': a_viewset})
 
     def create(self, request):
         # Create a new hello message
