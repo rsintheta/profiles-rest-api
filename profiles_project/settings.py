@@ -25,8 +25,8 @@ SECRET_KEY = 'r5$c7_r+fv*)rutr+t)gn7^$7-6-#bg*@0t78+a0&lv*2!ke5^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 #boo(int(os.environ.get('DEBUG', 1)))
-DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
-ALLOWED_HOSTS = []
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+ALLOWED_HOSTS = ['ec2-18-134-142-213.eu-west-2.compute.amazonaws.com','127.0.0.1']
 
 
 # Application definition
