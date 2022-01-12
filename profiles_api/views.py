@@ -12,17 +12,19 @@ from profiles_api import serializers
 from profiles_api import models
 from profiles_api import permissions
 
-# Use this if
-    # Your interface is not using standard CRUD operations
-    # You're building something complex
-    # You plan to customize the logic
-    # You are not working with standard data structures
+
+"""Use this if
+    Your interface is not using standard CRUD operations
+    You're building something complex
+    You plan to customize the logic
+    You are not working with standard data structures"""
+
 
 class TestApiView(APIView):
     # Test API View
     serializer_class = serializers.TestSerializer
 
-    def get(self, request, format = None): # Get request to API
+    def get(self, request, format=None):  # Get request to API
         # Returns a list of APIView features
         an_apiview = [
             'Using HTTP methods as functions (get, post, patch, put, delete)',
@@ -33,7 +35,7 @@ class TestApiView(APIView):
 
         return Response({'message': 'Success!', 'an_apiview': an_apiview})
 
-    def post(self, request): # Post request to API
+    def post(self, request):  # Post request to API
         # Create a message with user name
         serializer = self.serializer_class(data=request.data)
 
@@ -42,25 +44,28 @@ class TestApiView(APIView):
             message = f'Thank you, {name}'
             return Response({'message': message})
         else:
-            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, pk = None):
+    def put(self, request, pk=None):
         # Handle updating an object
-        return Response({'method' : 'PUT'})
+        return Response({'method': 'PUT'})
 
-    def patch(self, request, pk = None):
+    def patch(self, request, pk=None):
         # Handle a partial update of an object
-        return Response({'method' : 'PATCH'})
+        return Response({'method': 'PATCH'})
 
-    def delete(self, request, pk = None):
+    def delete(self, request, pk=None):
         # Delete an object
-        return Response({'method' : 'DELETE'})
+        return Response({'method': 'DELETE'})
 
-# Use this instead of APIView when you
-    # Are building a simple CRUD interface to the database
-    # Are building a Quick and Simple API
-    # Have little to no planned customization of logic
-    # Are working with standard data structures
+
+"""Use this instead of APIView when you
+        Are building a simple CRUD interface to the database
+        Are building a Quick and Simple API
+        Have little to no planned customization of logic
+        Are working with standard data structures"""
+
 
 class TestViewSet(viewsets.ViewSet):
     # Test API ViewSet

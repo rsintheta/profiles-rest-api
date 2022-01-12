@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+from .secrets import secretKEY
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -20,13 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'r5$c7_r+fv*)rutr+t)gn7^$7-6-#bg*@0t78+a0&lv*2!ke5^'
+SECRET_KEY = secretKEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-#boo(int(os.environ.get('DEBUG', 1)))
-DEFAULT_AUTO_FIELD='django.db.models.AutoField'
-ALLOWED_HOSTS = ['ec2-18-134-142-213.eu-west-2.compute.amazonaws.com','127.0.0.1']
+
+# boo(int(os.environ.get('DEBUG', 1)))
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+ALLOWED_HOSTS = ['ec2-18-134-142-213.eu-west-2.compute.amazonaws.com',
+                 '127.0.0.1']
 
 
 # Application definition
@@ -90,16 +92,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+         UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+         MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+         CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+         NumericPasswordValidator',
     },
 ]
 
