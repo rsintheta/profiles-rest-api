@@ -8,3 +8,6 @@ Ubuntu Bionic Beaver to test the API. When finished, I decided to try to run
 things on modern Django (at the time of writing this, django is currently
 version 3.2.9) to see if it would break things, which, it did! Fortunately,
 they were easy fixes.
+
+I deployed the API to a Amazon Web Services EC2 server instance, and was
+successfully able to deploy the server and also make some updates.
